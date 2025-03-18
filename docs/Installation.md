@@ -46,10 +46,49 @@ sudo chmod +x /etc/ssmtp
 sudo apt install sail
 ```
 
-The install will take a good few minutes depending upon the speed of the donor box and your internet link. During the install, you may be asked to enter an admin password for LDAP (make a note of it, you'll need it later). It will also ask about dumpcap but just take the default (No). Let the install run to its conclusion and then reboot:
+The install will take a good few minutes depending upon the speed of the donor box and your internet link. During the install, you may be asked to enter an admin password for LDAP (make a note of it, you'll need it later). It will also ask about dumpcap but just take the default (No). Let the install run to its conclusion.
+
+### link the HPE according to your architecture
+SARK ships with a compiled C code switching engine called sarkhpe.  There are two versions; one for regular X86-64 type architectures and one for the increasingly popular ARM64.
+
+If you don't know which arch you are running do this...
+
+````sh
+uname -m
+````
+
+It will return something like X86-64 (Intel/AMD) or aarch64 (ARM).  Once you have decided which architecture you have, proceed as follows..
 
 ```sh
-reboot
+cd /usr/share/asterisk/agi-bin
+ls -l
+-rwxr-xr-x 1 root root  19525 Dec 14  2023 kwakeup
+-rwxr-xr-x 1 root root 530944 Mar 12 19:00 sarkhpe_amd64
+-rwxr-xr-x 1 root root 545528 Mar 12 19:00 sarkhpe_arm64
+```
+
+As you can see, the two HPE modules each have a suffix denoting the arch for which they were compiled.
+Choose the one you want by creating a soft link to it...
+
+```sh
+sudo ln -s sarkhpe_amd64 sarkhpe
+```
+
+Now the file list should look like this...
+
+```sh
+ls -l 
+-rwxr-xr-x 1 root root  19525 Dec 14  2023 kwakeup
+lrwxrwxrwx 1 root root     13 Mar 13 18:47 sarkhpe -> sarkhpe_amd64
+-rwxr-xr-x 1 root root 530944 Mar 12 19:00 sarkhpe_amd64
+-rwxr-xr-x 1 root root 545528 Mar 12 19:00 sarkhpe_arm64
+```
+
+### Reboot
+
+Now reboot your new PBX
+```sh
+sudo reboot
 ```
 
 ### Install Asterisk Extra Sounds Package
