@@ -46,7 +46,7 @@ sudo chmod +x /etc/ssmtp
 sudo apt install sail
 ```
 
-The install will take a good few minutes depending upon the speed of the donor box and your internet link. During the install, you may be asked to enter an admin password for LDAP (make a note of it, you'll need it later). It will also ask about dumpcap but just take the default (No). Let the install run to its conclusion.
+The install will take a good few minutes depending upon the speed of the donor box and your internet link. During the install, you may be asked to enter an admin password for LDAP (make a note of it, you'll need it later). It will also ask about dumpcap but just take the default (No) and let the install run to its conclusion.
 
 ### link the HPE according to your architecture
 SARK ships with a compiled C code switching engine called sarkhpe.  There are two versions; one for regular X86-64 type architectures and one for the increasingly popular ARM64.
