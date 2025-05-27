@@ -23,7 +23,13 @@ curl -s https://packagecloud.io/install/repositories/aelintra/SARK/script.deb.sh
 
 ## SARK 6.2 Installation
 
-The latest SARK 6.2 will auto-install on Ubuntu 22.04 LTS (Jammy Jellyfish) or 24.04 LTS (Noble Numbat). It may install on other debian-like releases, but you will need to grab the deb packages from GitHub and install them manually (https://github.com/aelintra/sail6).
+The latest SARK 6.2 will auto-install on Ubuntu 22.04 LTS (Jammy Jellyfish).  It may install on other debian-like releases, but you will need to grab the deb packages from GitHub and install them manually (https://github.com/aelintra/sail6).
+
+## SARK 6.2 install packages
+
+If you need to download and install a particular release of a module then the currrent packages can be found here
+
+[text](https://packagecloud.io/aelintra/SARK)
 
 
 ### Installing a Mail Agent
