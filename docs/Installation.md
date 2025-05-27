@@ -124,7 +124,53 @@ sudo tar xvfz asterisk-extra-sounds-en-gsm-current.tar.gz
 sudo rm asterisk-extra-sounds-en-gsm-current.tar.gz
 ```
 
-### Secure your mysql/mariadb database
+### Check and secure your mysql/mariadb database
+
+To check the mysql/mariadb is good you can do the following:-
+
+```sh
+sudo mysql -u root
+```
+
+check the cdr database has been created:-
+```
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| asterisk           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+use asterisk
+describe cdr;
++-------------+--------------+------+-----+-----------+-------------------+
+| Field       | Type         | Null | Key | Default   | Extra             |
++-------------+--------------+------+-----+-----------+-------------------+
+| calldate    | datetime     | NO   | MUL | curdate() | DEFAULT_GENERATED |
+| clid        | varchar(80)  | NO   |     |           |                   |
+| src         | varchar(80)  | NO   |     |           |                   |
+| dst         | varchar(80)  | NO   | MUL |           |                   |
+| dcontext    | varchar(80)  | NO   |     |           |                   |
+| channel     | varchar(80)  | NO   |     |           |                   |
+| dstchannel  | varchar(80)  | NO   |     |           |                   |
+| lastapp     | varchar(80)  | NO   |     |           |                   |
+| lastdata    | varchar(80)  | NO   |     |           |                   |
+| duration    | int          | NO   |     | 0         |                   |
+| billsec     | int          | NO   |     | 0         |                   |
+| disposition | varchar(45)  | NO   |     |           |                   |
+| amaflags    | int          | NO   |     | 0         |                   |
+| accountcode | varchar(20)  | NO   | MUL |           |                   |
+| userfield   | varchar(255) | NO   |     |           |                   |
++-------------+--------------+------+-----+-----------+-------------------+
+15 rows in set (0.00 sec)
+```
+
+If you get the same output as above, you're golden.
 
 Now you can run the secure script for your mysql or maria database
 
