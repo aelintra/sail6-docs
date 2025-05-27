@@ -8,7 +8,7 @@ V6 can be installed onto X86 or ARM platforms. Only 64-bit architectures are sup
 
 ## Before you begin
 
-- V6.2 is designed to run as an appliance and must not be installed onto a multi-purpose system that has other software already installed on it. If you try, you will likely break both the existing systems and SARK. You must begin with an Ubuntu 24.04 minimal install which contains nothing but an SSH server.
+- V6.2 is designed to run as an appliance and must not be installed onto a multi-purpose system that has other software already installed on it. If you try, you will likely break both the existing systems and SARK. You must begin with an Ubuntu 22.04 minimal install which contains nothing but an SSH server.
 
 ## Installing the package manager
 
