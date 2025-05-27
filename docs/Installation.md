@@ -40,6 +40,21 @@ sudo apt install ssmtp
 sudo chmod +x /etc/ssmtp
 ```
 
+### Install mySQL/Mariadb
+
+The SARK install uses an SQL database to process call statistics.  It can be either mysql or mariadb but SARK does not specify which, so you'll need to decide. Install it now ...:  
+
+```sh
+sudo apt install mysql-server
+```
+
+OR
+
+```sh
+sudo apt install mariadb-server
+```
+**N.B. DO NOT run mysql_secure_installation yet!!**   The SARK install will automatically build the CDR Database for you but it needs access to mysql root without a password.   Once the installation is done, you *should* then run **mysql_secure_installation** to secure your DB instance (see below).
+
 ### Install the SARK packages
 
 ```sh
@@ -57,7 +72,7 @@ If you don't know which arch you are running do this...
 uname -m
 ````
 
-It will return something like X86-64 (Intel/AMD) or aarch64 (ARM).  Once you have decided which architecture you have, proceed as follows..
+It will return something like *X86-64* (Intel/AMD) or *aarch64* (ARM).  Once you have decided which architecture you have, proceed as follows..
 
 ```sh
 cd /usr/share/asterisk/agi-bin
@@ -74,7 +89,8 @@ Choose the one you want by creating a soft link to it...
 sudo ln -s sarkhpe_amd64 sarkhpe
 ```
 
-Now the file list should look like this...
+Now the file list should show the link you created
+ this...
 
 ```sh
 ls -l 
@@ -96,7 +112,7 @@ sudo reboot
 SARK requires the Asterisk extra sounds package. If you want UK English, there is a deb on the repo:
 
 ```sh
-apt install ast-en-gb-gpl-gsm-sounds
+sudo apt install ast-en-gb-gpl-gsm-sounds
 ```
 
 If you want "Alison" (US American), there is no deb available for this but it's pretty easy to install. At the Linux CLI, do the following:
@@ -107,6 +123,16 @@ sudo wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-soun
 sudo tar xvfz asterisk-extra-sounds-en-gsm-current.tar.gz
 sudo rm asterisk-extra-sounds-en-gsm-current.tar.gz
 ```
+
+### Secure your mysql/mariadb database
+
+Now you can run the secure script for your mysql or maria database
+
+```sh
+sudo mysql_secure_installation
+```
+Follow the script prompts.
+
 
 ##Next steps
 
@@ -119,4 +145,4 @@ Default login credentials will be...
 - **UID:** admin
 - **PWD:** sarkadmin
 
-If this is a brand new install, the SARK browser application will force you to change your password on first login. This will change BOTH the browser AND root passwords.
+If this is a brand new install, the SARK browser application will force you to change your password on first login. This will change BOTH the browser AND linux root passwords.
