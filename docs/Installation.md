@@ -12,7 +12,7 @@ V6 can be installed onto X86 or ARM platforms. Only 64-bit architectures are sup
 
 ## Installing the package manager
 
-SARK uses the packagecloud repo.   Here are the steps you need to prepare to use it.
+SARK uses the packagecloud repo.   Here are the steps you need to prepare to use it.\
 
 ```sh
 sudo apt update
@@ -42,7 +42,7 @@ sudo chmod +x /etc/ssmtp
 
 ### Install mySQL/Mariadb
 
-The SARK install uses an SQL database to process call statistics.  It can be either mysql or mariadb but SARK does not specify which, so you'll need to decide. Install it now ...:  
+The SARK install uses an SQL database to process call statistics.  It can be either mysql or mariadb but SARK does not specify which, so you'll need to decide. If in doubt, choose mariadb.   Install it now ...:  
 
 ```sh
 sudo apt install mysql-server
@@ -54,6 +54,15 @@ OR
 sudo apt install mariadb-server
 ```
 **N.B. DO NOT run mysql_secure_installation yet!!**   The SARK install will automatically build the CDR Database for you but it needs access to mysql root without a password.   Once the installation is done, you *should* then run **mysql_secure_installation** to secure your DB instance (see below).
+
+### Install iptables ###
+
+Ubuntu 24.04 favours ufw and it can conflict with shorewall so disable it.
+
+```sudo systemctl disable --now ufw
+   sudo apt update
+   sudo apt install iptables iptables-persistent
+```
 
 ### Install the SARK packages
 
@@ -107,6 +116,21 @@ Now reboot your new PBX
 sudo reboot
 ```
 
+### Choose your voicemail module
+
+For Ubuntu 22.04 and higher you will need to choose which voicemail module you want to use with Asterisk.  There are three choices:-
+
+- app_voicemail.so
+- app_voicemail_imap.sp
+- app_voicemail_odbc.so
+
+For most users, *app_voicemail.so* is the one you will likely wish to choose.   So, you must deselect the ones you don't in the *modules* section of /etc/asterisk/modules.conf:-
+
+```
+noload => app_voicemail_imap.so
+noload => app_voicemail_odbc.so
+```
+
 ### Install Asterisk Extra Sounds Package
 
 SARK requires the Asterisk extra sounds package. If you want UK English, there is a deb on the repo:
@@ -126,7 +150,7 @@ sudo rm asterisk-extra-sounds-en-gsm-current.tar.gz
 
 ### Check and secure your mysql/mariadb database
 
-To check the mysql/mariadb is good you can do the following:-
+To check the db is good you can do the following:-
 
 ```sh
 sudo mysql -u root
