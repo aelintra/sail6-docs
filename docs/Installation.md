@@ -60,8 +60,8 @@ sudo apt install mariadb-server
 Ubuntu 24.04 favours ufw and it can conflict with shorewall so disable it.
 
 ```sudo systemctl disable --now ufw
-   sudo apt update
-   sudo apt install iptables iptables-persistent
+sudo apt update
+sudo apt install iptables iptables-persistent
 ```
 
 ### Install the SARK packages
@@ -77,9 +77,9 @@ SARK ships with a compiled C code switching engine called sarkhpe.  There are tw
 
 If you don't know which arch you are running do this...
 
-````sh
+```sh
 uname -m
-````
+```
 
 It will return something like *X86-64* (Intel/AMD) or *aarch64* (ARM).  Once you have decided which architecture you have, proceed as follows..
 
