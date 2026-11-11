@@ -743,33 +743,33 @@
 
 
 
-<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h1>
 <p>V6 can be installed onto X86 or ARM platforms. Only 64-bit architectures are supported. It will happily install on bare-metal or in virtual environments and has additional support for AWS EC2 instances. SARK is developed on Ubuntu and it should ideally be installed onto that distro but you may be able to install it onto other "debian-like" distros (YMMV).</p>
 <ul>
 <li>It will work with most modern browsers.</li>
 <li>It will NOT work on any browser that doesn't support jQuery or has it disabled.</li>
 <li>It will NOT work on any browser that does not support HTML5 or CSS3.</li>
 </ul>
-<h2 id="before-you-begin">Before you begin<a class="headerlink" href="#before-you-begin" title="Permanent link">&para;</a></h2>
+<h2 id="before-you-begin">Before you begin<a class="headerlink" href="#before-you-begin" title="Permanent link">#</a></h2>
 <ul>
 <li>V6.2 is designed to run as an appliance and must not be installed onto a multi-purpose system that has other software already installed on it. If you try, you will likely break both the existing systems and SARK. You must begin with an Ubuntu 22.04 minimal install which contains nothing but an SSH server.</li>
 </ul>
-<h2 id="installing-the-package-manager">Installing the package manager<a class="headerlink" href="#installing-the-package-manager" title="Permanent link">&para;</a></h2>
+<h2 id="installing-the-package-manager">Installing the package manager<a class="headerlink" href="#installing-the-package-manager" title="Permanent link">#</a></h2>
 <p>SARK uses the packagecloud repo.   Here are the steps you need to prepare to use it.</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>curl<span class="w"> </span>-s<span class="w"> </span>https://packagecloud.io/install/repositories/aelintra/SARK/script.deb.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>bash
 </span></code></pre></div>
-<h2 id="sark-62-installation">SARK 6.2 Installation<a class="headerlink" href="#sark-62-installation" title="Permanent link">&para;</a></h2>
+<h2 id="sark-62-installation">SARK 6.2 Installation<a class="headerlink" href="#sark-62-installation" title="Permanent link">#</a></h2>
 <p>The latest SARK 6.2 will auto-install on Ubuntu 22.04 LTS (Jammy Jellyfish).  It may install on other debian-like releases, but you will need to grab the deb packages from GitHub and install them manually (<a href="https://github.com/aelintra/sail6">https://github.com/aelintra/sail6</a>).</p>
-<h3 id="installing-a-mail-agent">Installing a Mail Agent<a class="headerlink" href="#installing-a-mail-agent" title="Permanent link">&para;</a></h3>
+<h3 id="installing-a-mail-agent">Installing a Mail Agent<a class="headerlink" href="#installing-a-mail-agent" title="Permanent link">#</a></h3>
 <p>If this is a new install, you should install a mail agent. SARK has on-board support for a lightweight mail agent called ssmtp. If you install it, then SARK will provide a tab in the networking section for you to configure it. Install it now (so that SARK can set the correct permissions) ...:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ssmtp
 </span></code></pre></div>
 <p><strong>Note:</strong> Ubuntu creates the ssmtp directory with secure access permissions. You must fix it by doing:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/etc/ssmtp
 </span></code></pre></div>
-<h3 id="install-mysqlmariadb">Install mySQL/Mariadb<a class="headerlink" href="#install-mysqlmariadb" title="Permanent link">&para;</a></h3>
+<h3 id="install-mysqlmariadb">Install mySQL/Mariadb<a class="headerlink" href="#install-mysqlmariadb" title="Permanent link">#</a></h3>
 <p>The SARK install uses an SQL database to process call statistics.  It can be either mysql or mariadb but SARK does not specify which, so you'll need to decide. If in doubt, choose mariadb.   Install it now ...  </p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>mysql-server
 </span></code></pre></div>
@@ -777,17 +777,17 @@
 <p><div class="language-sh highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>mariadb-server
 </span></code></pre></div>
 <strong>N.B. DO NOT run mysql_secure_installation yet!!</strong>   The SARK install will automatically build the CDR Database for you but it needs access to mysql root without a password.   Once the installation is done, you <em>should</em> then run <strong>mysql_secure_installation</strong> to secure your DB instance (see below).</p>
-<h3 id="install-iptables">Install iptables<a class="headerlink" href="#install-iptables" title="Permanent link">&para;</a></h3>
+<h3 id="install-iptables">Install iptables<a class="headerlink" href="#install-iptables" title="Permanent link">#</a></h3>
 <p>Ubuntu 24.04 favours ufw and it can conflict with shorewall so disable it.</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>ufw
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>iptables<span class="w"> </span>iptables-persistent
 </span></code></pre></div>
-<h3 id="install-the-sark-packages">Install the SARK packages<a class="headerlink" href="#install-the-sark-packages" title="Permanent link">&para;</a></h3>
+<h3 id="install-the-sark-packages">Install the SARK packages<a class="headerlink" href="#install-the-sark-packages" title="Permanent link">#</a></h3>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>sail
 </span></code></pre></div>
 <p>The install will take a good few minutes depending upon the speed of the donor box and your internet link. During the install, you may be asked to enter an admin password for LDAP (make a note of it, you'll need it later). It will also ask about dumpcap but just take the default (No) and let the install run to its conclusion.</p>
-<h3 id="link-the-hpe-according-to-your-architecture">link the HPE according to your architecture<a class="headerlink" href="#link-the-hpe-according-to-your-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="link-the-hpe-according-to-your-architecture">link the HPE according to your architecture<a class="headerlink" href="#link-the-hpe-according-to-your-architecture" title="Permanent link">#</a></h3>
 <p>SARK ships with a compiled C code switching engine called sarkhpe.  There are two versions; one for regular X86-64 type architectures and one for the increasingly popular ARM64.</p>
 <p>If you don't know which arch you are running do this...</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uname<span class="w"> </span>-m
@@ -812,11 +812,11 @@ Choose the one you want by creating a soft link to it...</p>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>-rwxr-xr-x 1 root root 530944 Mar 12 19:00 sarkhpe_amd64
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>-rwxr-xr-x 1 root root 545528 Mar 12 19:00 sarkhpe_arm64
 </span></code></pre></div>
-<h3 id="reboot">Reboot<a class="headerlink" href="#reboot" title="Permanent link">&para;</a></h3>
+<h3 id="reboot">Reboot<a class="headerlink" href="#reboot" title="Permanent link">#</a></h3>
 <p>Now reboot your new PBX:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>reboot
 </span></code></pre></div>
-<h3 id="choose-your-voicemail-module">Choose your voicemail module<a class="headerlink" href="#choose-your-voicemail-module" title="Permanent link">&para;</a></h3>
+<h3 id="choose-your-voicemail-module">Choose your voicemail module<a class="headerlink" href="#choose-your-voicemail-module" title="Permanent link">#</a></h3>
 <p>For Ubuntu 22.04 and higher you will need to choose which voicemail module you want to use with Asterisk.  There are three choices:-</p>
 <ul>
 <li>app_voicemail.so</li>
@@ -827,7 +827,7 @@ Choose the one you want by creating a soft link to it...</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>noload =&gt; app_voicemail_imap.so
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>noload =&gt; app_voicemail_odbc.so
 </span></code></pre></div>
-<h3 id="install-asterisk-extra-sounds-package">Install Asterisk Extra Sounds Package<a class="headerlink" href="#install-asterisk-extra-sounds-package" title="Permanent link">&para;</a></h3>
+<h3 id="install-asterisk-extra-sounds-package">Install Asterisk Extra Sounds Package<a class="headerlink" href="#install-asterisk-extra-sounds-package" title="Permanent link">#</a></h3>
 <p>SARK requires the Asterisk extra sounds package. If you want UK English, there is a deb on the repo:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ast-en-gb-gpl-gsm-sounds
 </span></code></pre></div>
@@ -837,7 +837,7 @@ Choose the one you want by creating a soft link to it...</p>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sudo<span class="w"> </span>tar<span class="w"> </span>xvfz<span class="w"> </span>asterisk-extra-sounds-en-gsm-current.tar.gz
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>sudo<span class="w"> </span>rm<span class="w"> </span>asterisk-extra-sounds-en-gsm-current.tar.gz
 </span></code></pre></div>
-<h3 id="check-and-secure-your-mysqlmariadb-database">Check and secure your mysql/mariadb database<a class="headerlink" href="#check-and-secure-your-mysqlmariadb-database" title="Permanent link">&para;</a></h3>
+<h3 id="check-and-secure-your-mysqlmariadb-database">Check and secure your mysql/mariadb database<a class="headerlink" href="#check-and-secure-your-mysqlmariadb-database" title="Permanent link">#</a></h3>
 <p>To check the db is good you can do the following:-</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root
 </span></code></pre></div>
@@ -882,7 +882,7 @@ Choose the one you want by creating a soft link to it...</p>
 <p><div class="language-sh highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>mysql_secure_installation
 </span></code></pre></div>
 Follow the script prompts.</p>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">#</a></h2>
 <p>If you were running a previous version of SARK on your browser then you will need to clear your broswer cache or open an incognito/private window before proceeding. If you don't, you'll get odd-looking output as the cached jQuery code fights with the new V6 output.</p>
 <p>Your SARK app will be at <code>https://your.server.ip.address</code></p>
 <p>Default login credentials will be...</p>
