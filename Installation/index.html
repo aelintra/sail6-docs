@@ -461,6 +461,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#install-the-sark-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the SARK packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#link-the-hpe-according-to-your-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       link the HPE according to your architecture
@@ -651,6 +660,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#install-the-sark-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the SARK packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#link-the-hpe-according-to-your-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       link the HPE according to your architecture
@@ -761,43 +779,43 @@
 <strong>N.B. DO NOT run mysql_secure_installation yet!!</strong>   The SARK install will automatically build the CDR Database for you but it needs access to mysql root without a password.   Once the installation is done, you <em>should</em> then run <strong>mysql_secure_installation</strong> to secure your DB instance (see below).</p>
 <h3 id="install-iptables">Install iptables<a class="headerlink" href="#install-iptables" title="Permanent link">&para;</a></h3>
 <p>Ubuntu 24.04 favours ufw and it can conflict with shorewall so disable it.</p>
-<p>```sudo systemctl disable --now ufw
-sudo apt update
-sudo apt install iptables iptables-persistent
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>### Install the SARK packages
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>```sh
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>sudo apt install sail
-</span></code></pre></div></p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>ufw
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>iptables<span class="w"> </span>iptables-persistent
+</span></code></pre></div>
+<h3 id="install-the-sark-packages">Install the SARK packages<a class="headerlink" href="#install-the-sark-packages" title="Permanent link">&para;</a></h3>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>sail
+</span></code></pre></div>
 <p>The install will take a good few minutes depending upon the speed of the donor box and your internet link. During the install, you may be asked to enter an admin password for LDAP (make a note of it, you'll need it later). It will also ask about dumpcap but just take the default (No) and let the install run to its conclusion.</p>
 <h3 id="link-the-hpe-according-to-your-architecture">link the HPE according to your architecture<a class="headerlink" href="#link-the-hpe-according-to-your-architecture" title="Permanent link">&para;</a></h3>
 <p>SARK ships with a compiled C code switching engine called sarkhpe.  There are two versions; one for regular X86-64 type architectures and one for the increasingly popular ARM64.</p>
 <p>If you don't know which arch you are running do this...</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uname<span class="w"> </span>-m
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uname<span class="w"> </span>-m
 </span></code></pre></div>
 <p>It will return something like <em>X86-64</em> (Intel/AMD) or <em>aarch64</em> (ARM).  Once you have decided which architecture you have, proceed as follows..</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>/usr/share/asterisk/agi-bin
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ls<span class="w"> </span>-l
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">19525</span><span class="w"> </span>Dec<span class="w"> </span><span class="m">14</span><span class="w">  </span><span class="m">2023</span><span class="w"> </span>kwakeup
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">530944</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">19</span>:00<span class="w"> </span>sarkhpe_amd64
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">545528</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">19</span>:00<span class="w"> </span>sarkhpe_arm64
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>/usr/share/asterisk/agi-bin
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ls<span class="w"> </span>-l
+</span></code></pre></div>
+<p>Example output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>-rwxr-xr-x 1 root root  19525 Dec 14  2023 kwakeup
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>-rwxr-xr-x 1 root root 530944 Mar 12 19:00 sarkhpe_amd64
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>-rwxr-xr-x 1 root root 545528 Mar 12 19:00 sarkhpe_arm64
 </span></code></pre></div>
 <p>As you can see, the two HPE modules each have a suffix denoting the arch for which they were compiled.
 Choose the one you want by creating a soft link to it...</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>sarkhpe_amd64<span class="w"> </span>sarkhpe
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>sarkhpe_amd64<span class="w"> </span>sarkhpe
 </span></code></pre></div>
-<p>Now the file list should show the link you created
- this...</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ls<span class="w"> </span>-l<span class="w"> </span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">19525</span><span class="w"> </span>Dec<span class="w"> </span><span class="m">14</span><span class="w">  </span><span class="m">2023</span><span class="w"> </span>kwakeup
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">13</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">18</span>:47<span class="w"> </span>sarkhpe<span class="w"> </span>-&gt;<span class="w"> </span>sarkhpe_amd64
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">530944</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">19</span>:00<span class="w"> </span>sarkhpe_amd64
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">545528</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">19</span>:00<span class="w"> </span>sarkhpe_arm64
+<p>Now the file list should show the link you created:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ls -l 
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>-rwxr-xr-x 1 root root  19525 Dec 14  2023 kwakeup
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>lrwxrwxrwx 1 root root     13 Mar 13 18:47 sarkhpe -&gt; sarkhpe_amd64
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>-rwxr-xr-x 1 root root 530944 Mar 12 19:00 sarkhpe_amd64
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>-rwxr-xr-x 1 root root 545528 Mar 12 19:00 sarkhpe_arm64
 </span></code></pre></div>
 <h3 id="reboot">Reboot<a class="headerlink" href="#reboot" title="Permanent link">&para;</a></h3>
-<p>Now reboot your new PBX
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>reboot
-</span></code></pre></div></p>
+<p>Now reboot your new PBX:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>reboot
+</span></code></pre></div>
 <h3 id="choose-your-voicemail-module">Choose your voicemail module<a class="headerlink" href="#choose-your-voicemail-module" title="Permanent link">&para;</a></h3>
 <p>For Ubuntu 22.04 and higher you will need to choose which voicemail module you want to use with Asterisk.  There are three choices:-</p>
 <ul>
@@ -806,62 +824,62 @@ Choose the one you want by creating a soft link to it...</p>
 <li>app_voicemail_odbc.so</li>
 </ul>
 <p>For most users, <em>app_voicemail.so</em> is the one you will likely wish to choose.   So, you must deselect the ones you don't in the <em>modules</em> section of /etc/asterisk/modules.conf:-</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>noload =&gt; app_voicemail_imap.so
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>noload =&gt; app_voicemail_odbc.so
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>noload =&gt; app_voicemail_imap.so
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>noload =&gt; app_voicemail_odbc.so
 </span></code></pre></div>
 <h3 id="install-asterisk-extra-sounds-package">Install Asterisk Extra Sounds Package<a class="headerlink" href="#install-asterisk-extra-sounds-package" title="Permanent link">&para;</a></h3>
 <p>SARK requires the Asterisk extra sounds package. If you want UK English, there is a deb on the repo:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ast-en-gb-gpl-gsm-sounds
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ast-en-gb-gpl-gsm-sounds
 </span></code></pre></div>
 <p>If you want "Alison" (US American), there is no deb available for this but it's pretty easy to install. At the Linux CLI, do the following:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cd</span><span class="w"> </span>/usr/share/asterisk/sounds
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sudo<span class="w"> </span>wget<span class="w"> </span>http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-gsm-current.tar.gz
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>sudo<span class="w"> </span>tar<span class="w"> </span>xvfz<span class="w"> </span>asterisk-extra-sounds-en-gsm-current.tar.gz
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>sudo<span class="w"> </span>rm<span class="w"> </span>asterisk-extra-sounds-en-gsm-current.tar.gz
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>/usr/share/asterisk/sounds
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>sudo<span class="w"> </span>wget<span class="w"> </span>http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-gsm-current.tar.gz
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sudo<span class="w"> </span>tar<span class="w"> </span>xvfz<span class="w"> </span>asterisk-extra-sounds-en-gsm-current.tar.gz
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>sudo<span class="w"> </span>rm<span class="w"> </span>asterisk-extra-sounds-en-gsm-current.tar.gz
 </span></code></pre></div>
 <h3 id="check-and-secure-your-mysqlmariadb-database">Check and secure your mysql/mariadb database<a class="headerlink" href="#check-and-secure-your-mysqlmariadb-database" title="Permanent link">&para;</a></h3>
 <p>To check the db is good you can do the following:-</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root
 </span></code></pre></div>
 <p>check the cdr database has been created:-
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>show databases;
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>+--------------------+
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>| Database           |
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>+--------------------+
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>| asterisk           |
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>| information_schema |
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>| mysql              |
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>| performance_schema |
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>| sys                |
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>+--------------------+
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>5 rows in set (0.01 sec)
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>use asterisk
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>describe cdr;
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>+-------------+--------------+------+-----+-----------+-------------------+
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>| Field       | Type         | Null | Key | Default   | Extra             |
-</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>+-------------+--------------+------+-----+-----------+-------------------+
-</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>| calldate    | datetime     | NO   | MUL | curdate() | DEFAULT_GENERATED |
-</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>| clid        | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>| src         | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>| dst         | varchar(80)  | NO   | MUL |           |                   |
-</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>| dcontext    | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>| channel     | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>| dstchannel  | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>| lastapp     | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>| lastdata    | varchar(80)  | NO   |     |           |                   |
-</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>| duration    | int          | NO   |     | 0         |                   |
-</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>| billsec     | int          | NO   |     | 0         |                   |
-</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>| disposition | varchar(45)  | NO   |     |           |                   |
-</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>| amaflags    | int          | NO   |     | 0         |                   |
-</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>| accountcode | varchar(20)  | NO   | MUL |           |                   |
-</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>| userfield   | varchar(255) | NO   |     |           |                   |
-</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a>+-------------+--------------+------+-----+-----------+-------------------+
-</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>15 rows in set (0.00 sec)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>show databases;
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>+--------------------+
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>| Database           |
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>+--------------------+
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>| asterisk           |
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>| information_schema |
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>| mysql              |
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>| performance_schema |
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>| sys                |
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>+--------------------+
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>5 rows in set (0.01 sec)
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>use asterisk
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>describe cdr;
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>+-------------+--------------+------+-----+-----------+-------------------+
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>| Field       | Type         | Null | Key | Default   | Extra             |
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>+-------------+--------------+------+-----+-----------+-------------------+
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>| calldate    | datetime     | NO   | MUL | curdate() | DEFAULT_GENERATED |
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>| clid        | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>| src         | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>| dst         | varchar(80)  | NO   | MUL |           |                   |
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>| dcontext    | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>| channel     | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>| dstchannel  | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>| lastapp     | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>| lastdata    | varchar(80)  | NO   |     |           |                   |
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>| duration    | int          | NO   |     | 0         |                   |
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>| billsec     | int          | NO   |     | 0         |                   |
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>| disposition | varchar(45)  | NO   |     |           |                   |
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>| amaflags    | int          | NO   |     | 0         |                   |
+</span><span id="__span-17-31"><a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a>| accountcode | varchar(20)  | NO   | MUL |           |                   |
+</span><span id="__span-17-32"><a id="__codelineno-17-32" name="__codelineno-17-32" href="#__codelineno-17-32"></a>| userfield   | varchar(255) | NO   |     |           |                   |
+</span><span id="__span-17-33"><a id="__codelineno-17-33" name="__codelineno-17-33" href="#__codelineno-17-33"></a>+-------------+--------------+------+-----+-----------+-------------------+
+</span><span id="__span-17-34"><a id="__codelineno-17-34" name="__codelineno-17-34" href="#__codelineno-17-34"></a>15 rows in set (0.00 sec)
 </span></code></pre></div></p>
 <p>If you get the same output as above, you're golden.</p>
 <p>Now you can run the secure script for your mysql or maria database</p>
-<p><div class="language-sh highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>mysql_secure_installation
+<p><div class="language-sh highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>mysql_secure_installation
 </span></code></pre></div>
 Follow the script prompts.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
